@@ -1,5 +1,5 @@
 ########################################################################
-# Team <your team name>: <names>
+# Team <your team name>: <Ashley Stone>
 # AST 304, Fall 2022
 # Michigan State University
 # This header (minus this line) should go at the top of all code files.
