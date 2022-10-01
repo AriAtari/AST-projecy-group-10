@@ -9,6 +9,7 @@
 <Description of this module goes here: what it does, how it's used.>
 """
 
+from telnetlib import AYT
 import numpy as np
 from numpy.linalg import norm
 # ode.py is your routine containing integrators
@@ -51,7 +52,10 @@ def total_energy(z,m):
     Returns energy per unit mass: E(z,m) = KE(v) + PE(x,m)
 
     Arguments
-        <fill this in>
+        z (array-like)
+            position and velocity vectors with indices 0,1 being the position in the x and y plane and 2,3 being the velocity in the xy plane.
+        m (scalar)
+            total mass in normalized units
     """
     # to break z into position, velocity vectors, we use array slices:
     # here z[n:m] means take elements of z with indices n <= j < m
@@ -59,24 +63,47 @@ def total_energy(z,m):
     v = z[2:4]  # start with index 2 and take two indices: 2 and 3
 
     # replace the following two lines
-    pass
-    return
+    KE = kinetic_energy(v)
+    PE = potential_energy(r,m)
+    TE = KE + PE
+    return KE
 
 def derivs(t,z,m):
     """
     Computes derivatives of position and velocity for Kepler's problem 
     
     Arguments
-        <fill this in>
+        t (array-like)
+            time in reduced units T= 2*pi
+        z (array-like)
+            position and velocity vectors with indices 0,1 being the position in the x and y plane and 2,3 being the velocity in the xy plane.
+        m (scalar)
+            total mass in normalized units
     Returns
         numpy array dzdt with components [ dx/dt, dy/dt, dv_x/dt, dv_y/dt ]
     """
     # Fill in the following steps
     # 1. split z into position vector and velocity vector (see total_energy for example)
-    # 2. compute the norm of position vector, and use it to compute the force
-    # 3. compute drdt (array [dx/dt, dy/dt])
-    # 4. compute dvdt (array [dvx/dt, dvy/dt])
 
+    r = z[0:2]  # start with index 0 and take two indices: 0 and 1
+    v = z[2:4]  # start with index 2 and take two indices: 2 and 3
+
+    # 2. compute the norm of position vector, and use it to compute the force
+    norm_x = norm(r[0])
+    norm_y = norm(r[1])
+    # Force per unit mass = acceleration
+    r_current = np.sqrt(np.dot(r))
+    
+    ax = -m/r_current**3*norm_x
+    ay = -m/r_current**3*norm_y
+    # 3. compute drdt (array [dx/dt, dy/dt])
+    dxdt = norm(v[0])
+    dydt = norm(v[1])
+    drdt= np.array([dxdt,dydt])
+    # 4. compute dvdt (array [dvx/dt, dvy/dt])
+    dvxdt = ax
+    dvydt = ay
+    dvdt = np.array([dvxdt, dvydt])
     # join the arrays
     dzdt = np.concatenate((drdt,dvdt))
     return dzdt
