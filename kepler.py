@@ -1,8 +1,7 @@
 ########################################################################
-# Team <your team name>: <names>
-# AST 304, Fall 2022
+# Team Spectacular Stellars: Arian Andalib, Ashley Stone, Jonathan Kho, Emma Oswald
+# AST 304, Fall 2020
 # Michigan State University
-# This header (minus this line) should go at the top of all code files.
 ########################################################################
 
 """

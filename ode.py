@@ -1,8 +1,7 @@
 ########################################################################
-# Team <your team name>: <names>
+# Team Spectacular Stellars: Arian Andalib, Ashley Stone, Jonathan Kho, Emma Oswald
 # AST 304, Fall 2020
 # Michigan State University
-# This header (minus this line) should go at the top of all code files.
 ########################################################################
 
 """
@@ -20,7 +19,14 @@ def fEuler(f,t,z,h,args=()):
         f(t,z,...)
             function that contains the RHS of the equation dz/dt = f(t,z,...)
     
-        <fill this in>
+        t (float)
+            the initial time value
+            
+        z (float)
+            initial z position
+            
+        h (float)
+            time step value
     
         args (tuple, optional)
             additional arguments to pass to f
@@ -55,7 +61,14 @@ def rk2(f,t,z,h,args=()):
         f(t,z,...)
             function that contains the RHS of the equation dz/dt = f(t,z,...)
     
-        <fill this in>
+        t (float)
+            the initial time value
+            
+        z (float)
+            initial z position
+            
+        h (float)
+            time step value
     
         args (tuple, optional)
             additional arguments to pass to f
@@ -67,9 +80,13 @@ def rk2(f,t,z,h,args=()):
     if not isinstance(args,tuple):
         args = (args,)
     
-    # delete the line "pass" when you put in the full routine
-    pass
-    return
+    #estimate of the midpoint of the interval
+    z_p = (z+(h/2)*f(t, z))/(t+(h/2))
+
+    #calculating z(t+h) using z_p
+    z_new = (z + h*f((t+(h/2)), zp))/(t+h)
+    
+    return z_new
 
 def rk4(f,t,z,h,args=()):
     """
@@ -79,8 +96,15 @@ def rk4(f,t,z,h,args=()):
         f(t,z,...)
             function that contains the RHS of the equation dz/dt = f(t,z,...)
     
-        <fill this in>
-    
+        t (float)
+            the initial time value
+            
+        z (float)
+            initial z position
+            
+        h (float)
+            time step value
+            
         args (tuple, optional)
             additional arguments to pass to f
     
@@ -91,6 +115,13 @@ def rk4(f,t,z,h,args=()):
     if not isinstance(args,tuple):
         args = (args,)
     
-    # delete the line "pass" when you put in the full routine
-    pass
+    #four estimates for dz/dt
+    k1 = f(t, z)
+    k2 = f(t+(h/2), z+(h/2)*k1)
+    k3 = f(t+(h/2), z+(h/2)*k2)
+    k4 = f(t+h, z+h*k3)
+    
+    #calculate the weighted avg. to find z(t+h)
+    znew = z +(h/6)*(k1+2*k2+2*k3)
+ 
     return
