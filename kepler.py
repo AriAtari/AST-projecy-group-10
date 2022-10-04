@@ -6,7 +6,7 @@
 ########################################################################
 
 """
-<Description of this module goes here: what it does, how it's used.>
+<This file contains our functions calculating the energies, derivatives, orbits, and initial conditions of our system.>
 """
 
 from telnetlib import AYT
@@ -84,7 +84,7 @@ def derivs(t,z,m):
     """
     # Fill in the following steps
     # 1. split z into position vector and velocity vector (see total_energy for example)
-
+  
     r = z[0:2]  # start with index 0 and take two indices: 0 and 1
     v = z[2:4]  # start with index 2 and take two indices: 2 and 3
 
@@ -92,7 +92,7 @@ def derivs(t,z,m):
     norm_x = norm(r[0])
     norm_y = norm(r[1])
     # Force per unit mass = acceleration
-    r_current = np.sqrt(np.dot(r))
+    r_current = np.sqrt(np.dot(r,r))
     
     ax = -m/r_current**3*norm_x
     ay = -m/r_current**3*norm_y
@@ -135,6 +135,8 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     # set the initial time and phase space array
     t = 0.0
     z = z0
+    r = z[0:2]  # start with index 0 and take two indices: 0 and 1
+    v = z[2:4]  # start with index 2 and take two indices: 2 and 3
 
     # expected number of steps
     Nsteps = int(tend/h)+1
@@ -198,7 +200,7 @@ def set_initial_conditions(a, m, e):
     eps0 = -m/(2*a)
     
     # period of motion
-    Tperiod = ((np.pi)/(np.sqrt(2))*m*abs(eps)**(-3/2))
+    Tperiod = ((np.pi)/(np.sqrt(2))*m*abs(eps0)**(-3/2))
 
     # initial position
     # fill in the following lines with the correct formulae
