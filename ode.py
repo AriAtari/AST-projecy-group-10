@@ -1,13 +1,13 @@
 ########################################################################
-# # Team Spectacular Stellars: 'Oswald, Emma Jo', 'Kho, Jonathan Andrew', 'Andalib, Arian Alexander', 'Stone, Ashley Taylor'
-# AST 304, Fall 2022
+# Team Spectacular Stellars: Arian Andalib, Ashley Stone, Jonathan Kho, Emma Oswald
+# AST 304, Fall 2020
 # Michigan State University
-# This header (minus this line) should go at the top of all code files.
 ########################################################################
 
 """
 <Description of this module goes here: what it does, how it's used.>
 """
+
 # all routines that take a single step should have the same interface
 # fEuler is complete, except for documentation. you can use this as a pattern 
 # for the other two routines.
@@ -81,10 +81,10 @@ def rk2(f,t,z,h,args=()):
         args = (args,)
     
     #estimate of the midpoint of the interval
-    z_p = (z+(h/2)*f(t, z,*args))/(t+(h/2))
+    z_p = (z+(h/2)*f(t, z,*args))
 
     #calculating z(t+h) using z_p
-    z_new = (z + h*f((t+(h/2)), z_p,*args))/(t+h)
+    z_new = (z + h*f((t+(h/2)), z_p,*args))
     
     return z_new
 
@@ -110,7 +110,7 @@ def rk4(f,t,z,h,args=()):
     
     Returns
         znew = z(t+h)
-    """, 
+    """ 
    
     if not isinstance(args,tuple):
         args = (args,)
