@@ -5,7 +5,7 @@
 ########################################################################
 
 """
-<Description of this module goes here: what it does, how it's used.>
+<This file contains our functions calculating the energies, derivatives, orbits, and initial conditions of our system.>
 """
 
 import numpy as np
