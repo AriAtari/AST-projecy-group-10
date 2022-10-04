@@ -1,5 +1,5 @@
 ########################################################################
-# Team <your team name>: <names>
+# # Team Spectacular Stellars: 'Oswald, Emma Jo', 'Kho, Jonathan Andrew', 'Andalib, Arian Alexander', 'Stone, Ashley Taylor'
 # AST 304, Fall 2022
 # Michigan State University
 # This header (minus this line) should go at the top of all code files.
@@ -115,20 +115,18 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     
     Arguments:
         z0
-            < fill this in >
-
+            < the first value is the z(t) array >
         m
-            < fill this in >
+            < the mass >
     
         tend
-            < fill this in >
+            < the end time being integrated over >
     
         h
-            < fill this in >
+            < the step size >
     
-        method ('Euler', 'RK2', or 'RK4')
+        method ('RK4')
             identifies which stepper routine to use (default: 'RK4')
-
     Returns
         ts, Xs, Ys, KEs, PEs, TEs := arrays of time, x postions, y positions, 
         and energies (kin., pot., total) 
@@ -153,7 +151,11 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     ts[0] = t
     Xs[0] = z[0]
     Ys[0] = z[1]
+    
     # now extend this with KEs[0], PEs[0], TEs[0]
+    KEs[0] = kinetic_energy(v[2:4])
+    PEs[0] = potential_energy(r[0:2],m)
+    TEs[0] = total_energy(z,m)
 
     # select the stepping method
     advance_one_step = integration_methods[method]
@@ -161,13 +163,19 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     for step in range(1,Nsteps):
         z = advance_one_step(derivs,t,z,h,args=m)
         # insert statement here to increment t by the stepsize h
-
+        t = t+h
         # store values
         ts[step] = t
         # fill in with assignments for Xs, Ys, KEs, PEs, TEs
+        Xs[step] = z[0]
+        Ys[step] = z[1]
+        KEs[step] = kinetic_energy(v[2:4])
+        PEs[step] = potential_energy(r[0:2],m)
+        TEs[step] = total_energy(z,m)
     return ts, Xs, Ys, KEs, PEs, TEs
     
 def set_initial_conditions(a, m, e):
+    
     """
     set the initial conditions for the orbit.  The orientation of the orbit is 
     chosen so that y0 = 0.0 and vx0 = 0.0.
@@ -185,20 +193,21 @@ def set_initial_conditions(a, m, e):
         and period
     """
         
-    # fill in the following lines with the correct formulae
+    # fill in the following lines with the correct formulae    
     # total energy per unit mass
-    eps0 = 0.0
+    eps0 = -m/(2*a)
+    
     # period of motion
-    Tperiod = 0.0
+    Tperiod = ((np.pi)/(np.sqrt(2))*m*abs(eps)**(-3/2)
 
     # initial position
     # fill in the following lines with the correct formulae
-    x0 = 0.0
+    x0 = a*(1+e) 
     y0 = 0.0
 
     # initial velocity is in y-direction; we compute it from the energy
     # fill in the following lines with the correct formulae
     vx0 = 0.0
-    vy0 = 0.0
+    vy0 = np.sqrt(2*eps0 + (2*m/x0))
     
     return np.array([x0,y0,vx0,vy0]), eps0, Tperiod
