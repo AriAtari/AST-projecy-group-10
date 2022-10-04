@@ -81,10 +81,10 @@ def rk2(f,t,z,h,args=()):
         args = (args,)
     
     #estimate of the midpoint of the interval
-    z_p = (z+(h/2)*f(t, z,*args))/(t+(h/2))
+    z_p = (z+(h/2)*f(t, z,*args))
 
     #calculating z(t+h) using z_p
-    z_new = (z + h*f((t+(h/2)), z_p,*args))/(t+h)
+    z_new = (z + h*f((t+(h/2)), z_p,*args))
     
     return z_new
 
@@ -110,7 +110,7 @@ def rk4(f,t,z,h,args=()):
     
     Returns
         znew = z(t+h)
-    """, 
+    """ 
    
     if not isinstance(args,tuple):
         args = (args,)
