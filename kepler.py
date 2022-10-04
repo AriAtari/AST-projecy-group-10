@@ -198,7 +198,7 @@ def set_initial_conditions(a, m, e):
     eps0 = -m/(2*a)
     
     # period of motion
-    Tperiod = ((np.pi)/(np.sqrt(2))*m*abs(eps)**(-3/2)
+    Tperiod = ((np.pi)/(np.sqrt(2))*m*abs(eps)**(-3/2))
 
     # initial position
     # fill in the following lines with the correct formulae
