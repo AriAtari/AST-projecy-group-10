@@ -66,7 +66,7 @@ def total_energy(z,m):
     KE = kinetic_energy(v)
     PE = potential_energy(r,m)
     TE = KE + PE
-    return KE
+    return TE
 
 def derivs(t,z,m):
     """
@@ -89,21 +89,23 @@ def derivs(t,z,m):
     v = z[2:4]  # start with index 2 and take two indices: 2 and 3
 
     # 2. compute the norm of position vector, and use it to compute the force
-    norm_x = norm(r[0])
-    norm_y = norm(r[1])
+    # norm_x = norm(r[0])
+    # norm_y = norm(r[1])
+    rabs = norm(r)
     # Force per unit mass = acceleration
-    r_current = np.sqrt(np.dot(r,r))
+    # r_current = np.sqrt(np.dot(r,r))
     
-    ax = -m/r_current**3*norm_x
-    ay = -m/r_current**3*norm_y
+    # ax = -m/rabs**3*r[0] # -m/r_current**3*norm_x 
+    # ay = -m/rabs**3*r[1] # -m/r_current**3*norm_y
+    a = (-m/rabs**3)*r #trying new code
     # 3. compute drdt (array [dx/dt, dy/dt])
-    dxdt = norm(v[0])
-    dydt = norm(v[1])
-    drdt= np.array([dxdt,dydt])
+    # dxdt = norm(v[0])
+    # dydt = norm(v[1])
+    drdt = v # v = np.array([dxdt,dydt]) # renamed from drdt
     # 4. compute dvdt (array [dvx/dt, dvy/dt])
-    dvxdt = ax
-    dvydt = ay
-    dvdt = np.array([dvxdt, dvydt])
+    # dvxdt = ax
+    # dvydt = ay
+    dvdt = a # trying new code
     # join the arrays
     dzdt = np.concatenate((drdt,dvdt))
     return dzdt
@@ -155,8 +157,8 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     Ys[0] = z[1]
     
     # now extend this with KEs[0], PEs[0], TEs[0]
-    KEs[0] = kinetic_energy(v[2:4])
-    PEs[0] = potential_energy(r[0:2],m)
+    KEs[0] = kinetic_energy(v) # v[2:4]
+    PEs[0] = potential_energy(r,m) # r[0:2]
     TEs[0] = total_energy(z,m)
 
     # select the stepping method
@@ -164,6 +166,8 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
     # run through the steps
     for step in range(1,Nsteps):
         z = advance_one_step(derivs,t,z,h,args=m)
+        r = z[0:2]
+        v = z[2:4]
         # insert statement here to increment t by the stepsize h
         t = t+h
         # store values
@@ -171,8 +175,8 @@ def integrate_orbit(z0,m,tend,h,method='RK4'):
         # fill in with assignments for Xs, Ys, KEs, PEs, TEs
         Xs[step] = z[0]
         Ys[step] = z[1]
-        KEs[step] = kinetic_energy(v[2:4])
-        PEs[step] = potential_energy(r[0:2],m)
+        KEs[step] = kinetic_energy(v) # v[2:4]
+        PEs[step] = potential_energy(r,m) # r[0:2]
         TEs[step] = total_energy(z,m)
     return ts, Xs, Ys, KEs, PEs, TEs
     
