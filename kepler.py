@@ -89,25 +89,24 @@ def derivs(t,z,m):
     v = z[2:4]  # start with index 2 and take two indices: 2 and 3
 
     # 2. compute the norm of position vector, and use it to compute the force
-    # norm_x = norm(r[0])
-    # norm_y = norm(r[1])
+    
     rabs = norm(r)
     # Force per unit mass = acceleration
-    # r_current = np.sqrt(np.dot(r,r))
     
-    # ax = -m/rabs**3*r[0] # -m/r_current**3*norm_x 
-    # ay = -m/rabs**3*r[1] # -m/r_current**3*norm_y
-    a = (-m/rabs**3)*r #trying new code
+    a = (-m/rabs**3)*r 
+    
     # 3. compute drdt (array [dx/dt, dy/dt])
-    # dxdt = norm(v[0])
-    # dydt = norm(v[1])
-    drdt = v # v = np.array([dxdt,dydt]) # renamed from drdt
+    
+    drdt = v 
+    
     # 4. compute dvdt (array [dvx/dt, dvy/dt])
-    # dvxdt = ax
-    # dvydt = ay
-    dvdt = a # trying new code
+    
+    dvdt = a 
+    
     # join the arrays
+    
     dzdt = np.concatenate((drdt,dvdt))
+    
     return dzdt
 
 def integrate_orbit(z0,m,tend,h,method='RK4'):
