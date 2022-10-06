@@ -1,11 +1,15 @@
 ########################################################################
 # Team Spectacular Stellars: Arian Andalib, Ashley Stone, Jonathan Kho, Emma Oswald
-# AST 304, Fall 2020
+# AST 304, Fall 2022
 # Michigan State University
 ########################################################################
 
 """
-<Description of this module goes here: what it does, how it's used.>
+This module contains functions for approximating a positional value for a given ordinary differential equation. The functions are
+
+    - fEuler (Forward Euler Approximation)
+    - rk2 (Second-order Runge-Kutta)
+    - rk4 (Fourth-order Runge-Kutta)
 """
 
 # all routines that take a single step should have the same interface
@@ -13,7 +17,10 @@
 # for the other two routines.
 def fEuler(f,t,z,h,args=()):
     """
-    <Description of routine goes here: what it does, how it's called>
+    Routine for forward Euler approximation. A first-order approximation to solve a given
+    ODE. Called with one function, a starting time value, a starting z value, a time step, 
+    and any additional arguments to pass to the inputed function. Returns an estimated z 
+    (position) value for the given ODE and initial conditions.
     
     Arguments
         f(t,z,...)
@@ -55,7 +62,11 @@ def fEuler(f,t,z,h,args=()):
 
 def rk2(f,t,z,h,args=()):
     """
-    <Description of routine goes here: what it does, how it's called>
+    Routine for a second order Runge-Kutta step. A second-order approximation to solve a
+    givenODE. Called with one function, a starting time value, a starting z value, a time 
+    step, and any additional arguments to pass to the inputed function. Returns an  
+    estimated z (position) value for the given ODE and initial conditions.
+    
     
     Arguments
         f(t,z,...)
@@ -90,7 +101,11 @@ def rk2(f,t,z,h,args=()):
 
 def rk4(f,t,z,h,args=()):
     """
-    <Description of routine goes here: what it does, how it's called>
+    Routine for a fourth order Runge-Kutta step. A fourth-order approximation to solve a
+    givenODE. Called with one function, a starting time value, a starting z value, a time 
+    step, and any additional arguments to pass to the inputed function. Returns an 
+    estimated z (position) value for the given ODE and initial conditions.
+    
     
     Arguments
         f(t,z,...)
